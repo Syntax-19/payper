@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:payper/widget/app_background.dart';
+import 'package:payper/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreen_State extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
 
   @override // TDOO: Build screen here refer project 3
   Widget build(BuildContext context) {
@@ -68,17 +70,31 @@ class LoginScreen_State extends State<LoginScreen> {
 
               // Login Button
               ElevatedButton(
-                onPressed: () {
-                  // TODO: connect Firebase login
+                onPressed: () async {
+                  try {
+                    final user = await _authService.signIn(
+                      email: emailController.text,
+                      password: passwordController.text,
+                    );
+
+                    if (user != null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Login Successful")),
+                      );
+
+                      // TODO: Navigate to HomeScreen
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(SnackBar(content: Text(e.toString())));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   backgroundColor: Colors.black,
                 ),
-                child: const Text(
-                  "Login",
-                  style: TextStyle(fontSize: 16),
-                ),
+                child: const Text("Login", style: TextStyle(fontSize: 16)),
               ),
 
               const SizedBox(height: 15),
@@ -88,11 +104,8 @@ class LoginScreen_State extends State<LoginScreen> {
                   // TODO: navigate to signup
                 },
                 child: const Text(
-
                   "Don't have an account? Sign up",
-                  style: TextStyle(
-                      color: Colors.white
-                  ),
+                  style: TextStyle(color: Colors.white),
 
                   //Edit colors!!
                 ),
