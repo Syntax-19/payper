@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:payper/widget/app_background.dart';
 import 'package:payper/services/auth_service.dart';
-import 'package:payper/screens/signup_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => LoginScreen_State();
+  State<SignupScreen> createState() => SignupScreenState();
 }
 
-class LoginScreen_State extends State<LoginScreen> {
+class SignupScreenState extends State<SignupScreen> {
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   final AuthService _authService = AuthService();
 
-  @override // TDOO: Build screen here refer project 3
+  @override
   Widget build(BuildContext context) {
     return AppBackground(
       child: Center(
@@ -25,7 +26,7 @@ class LoginScreen_State extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                "Welcome Back",
+                "Create Account",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 28,
@@ -36,10 +37,24 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 30),
 
-              // Email Field
+              // Name
+              TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: "Name",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 15),
+
+              // Email
               TextField(
                 controller: emailController,
-                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -52,11 +67,10 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 15),
 
-              // Password Field
+              // Password
               TextField(
                 controller: passwordController,
                 obscureText: true,
-                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -69,23 +83,18 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 25),
 
-              // Login Button
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    final user = await _authService.signIn(
+                    await _authService.signUp(
                       email: emailController.text,
                       password: passwordController.text,
+                      name: nameController.text,
                     );
-
-                    if (user != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Login Successful")),
-                      );
-
-                      // TODO: Navigate to HomeScreen
-                    }
+                    if (!mounted) return;
+                    Navigator.pop(context, true);
                   } catch (e) {
+                    if (!mounted) return;
                     ScaffoldMessenger.of(
                       context,
                     ).showSnackBar(SnackBar(content: Text(e.toString())));
@@ -95,29 +104,7 @@ class LoginScreen_State extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   backgroundColor: Colors.black,
                 ),
-                child: const Text("Login", style: TextStyle(fontSize: 16,color: Colors.white)),
-              ),
-
-              const SizedBox(height: 15),
-
-              // SIGN UP BUTTON
-              TextButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const SignupScreen()),
-                  );
-
-                  if (result == true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Signup Successful")),
-                    );
-                  }
-                },
-                child: const Text(
-                  "Don't have an account? Sign up",
-                  style: TextStyle(color: Colors.white),
-                ),
+                child: const Text("Sign Up!",style: TextStyle(color: Colors.white),),
               ),
             ],
           ),

@@ -8,24 +8,78 @@ class AppBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true, // fixes keyboard overflow
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xFF6A5AE0),
-              Color(0xFF8E7CFF),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      resizeToAvoidBottomInset: true,
+      body: Stack(
+        children: [
+          // 🔵 TOP GRADIENT SECTION
+          Container(
+            height: MediaQuery.of(context).size.height * 0.55,
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF2D3A8C), // deep indigo-blue
+                  Color(0xFF4F8CFF), // lighter blue
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: child,
-        ),
+
+          // ⚪ BOTTOM WHITE SECTION
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+            ),
+          ),
+
+          // 🌊 CURVED DIVIDER (THE KEY PART)
+          Align(
+            alignment: Alignment.center,
+            child: ClipPath(
+              clipper: WaveClipper(),
+              child: Container(
+                height: 120,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+
+          // 🔐 CONTENT
+          SafeArea(child: child),
+        ],
       ),
     );
   }
+}
+class WaveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0, size.height - 40);
+
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height + 40,
+      size.width,
+      size.height - 40,
+    );
+
+    path.lineTo(size.width, 0);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
