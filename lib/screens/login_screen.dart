@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:payper/screens/home_screen.dart';
 import 'package:payper/widget/app_background.dart';
 import 'package:payper/services/auth_service.dart';
 import 'package:payper/screens/signup_screen.dart';
@@ -69,8 +70,8 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 25),
 
-              // Login Button
               ElevatedButton(
+                // Login button..
                 onPressed: () async {
                   try {
                     final user = await _authService.signIn(
@@ -82,8 +83,10 @@ class LoginScreen_State extends State<LoginScreen> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Login Successful")),
                       );
-
-                      // TODO: Navigate to HomeScreen
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                      );
                     }
                   } catch (e) {
                     ScaffoldMessenger.of(
@@ -95,18 +98,22 @@ class LoginScreen_State extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   backgroundColor: Colors.black,
                 ),
-                child: const Text("Login", style: TextStyle(fontSize: 16,color: Colors.white)),
+                child: const Text(
+                  "Login",
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
               ),
 
               const SizedBox(height: 15),
 
-              // SIGN UP BUTTON
-              TextButton(
+              OutlinedButton(
                 onPressed: () async {
                   final result = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const SignupScreen()),
                   );
+
+                  if (!mounted) return;
 
                   if (result == true) {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -114,9 +121,16 @@ class LoginScreen_State extends State<LoginScreen> {
                     );
                   }
                 },
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  side: const BorderSide(color: Colors.white),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
                 child: const Text(
                   "Don't have an account? Sign up",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

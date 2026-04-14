@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:payper/screens/home_screen.dart';
 import 'firebase_options.dart';
 import 'screens/login_screen.dart';
 
@@ -16,11 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Payper',
 
-      home: const LoginScreen(),
+      home: user != null ? const HomeScreen() : const LoginScreen(),
+
     );
   }
 }

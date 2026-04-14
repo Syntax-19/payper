@@ -17,19 +17,11 @@ class AuthService {
       );
       final user = result.user;
       if (user != null) {
-        Future<void>(() async {
-          try {
-            await FirebaseFirestore.instance
-                .collection('users')
-                .doc(user.uid)
-                .set({
-                  'name': name,
-                  'email': email,
-                  'balance': 6200,
-                  'createdAt': Timestamp.now(),
-                });
-          } catch (_) {
-          }
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'name': name,
+          'email': email,
+          'balance': 6200,
+          'createdAT': Timestamp.now(),
         });
       }
 

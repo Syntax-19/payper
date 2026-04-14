@@ -11,15 +11,15 @@ class AppBackground extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          // 🔵 TOP GRADIENT SECTION
+          // upper color section
           Container(
             height: MediaQuery.of(context).size.height * 0.55,
             width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF2D3A8C), // deep indigo-blue
-                  Color(0xFF4F8CFF), // lighter blue
+                  Color(0xFF2D3A8C),
+                  Color(0xFF4F8CFF),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -27,19 +27,18 @@ class AppBackground extends StatelessWidget {
             ),
           ),
 
-          // ⚪ BOTTOM WHITE SECTION
+          // lower color section
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               height: MediaQuery.of(context).size.height * 0.55,
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: Color(0xFFD2BF8C),
               ),
             ),
           ),
 
-          // 🌊 CURVED DIVIDER (THE KEY PART)
           Align(
             alignment: Alignment.center,
             child: ClipPath(
