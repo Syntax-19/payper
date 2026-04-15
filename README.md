@@ -44,6 +44,19 @@ Built to simulate core digital payment flows while focusing on **performance, re
 
 ## 📸 Screenshots
 
+### 🏠 Home Screen
+![Home Screen](assets/screenshots/HomeScreen.png)
+
+### 💸 Send Money
+![Send Money](assets/screenshots/SendContactsScreen.png)
+
+### 📜 Transaction History
+![History](assets/screenshots/HistoryScreen.png)
+
+### 🔐 Login Screen
+![Login](assets/screenshots/WelcomeScreen.png)
+
+
 ---
 
 ## ⚙️ Setup Instructions
