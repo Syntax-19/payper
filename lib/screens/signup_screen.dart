@@ -19,12 +19,26 @@ class SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return AppBackground(
-      child: Center(
+      child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 80, // same as login
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              const SizedBox(height: 40),
+              Center(
+                child: Image.asset(
+                  'assets/images/whLogoNoBG.png',
+                  height: 100,
+                ),
+              ),
+              const SizedBox(height: 10),
               const Text(
                 "Create Account",
                 textAlign: TextAlign.center,
@@ -106,6 +120,7 @@ class SignupScreenState extends State<SignupScreen> {
                 ),
                 child: const Text("Sign Up!",style: TextStyle(color: Colors.white),),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),

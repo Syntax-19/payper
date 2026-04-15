@@ -16,15 +16,31 @@ class LoginScreen_State extends State<LoginScreen> {
   final passwordController = TextEditingController();
   final AuthService _authService = AuthService();
 
-  @override // TDOO: Build screen here refer project 3
+  @override
   Widget build(BuildContext context) {
     return AppBackground(
-      child: Center(
+      child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 100,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+
+              Center(
+                child: Image.asset(
+                  'assets/images/whLogoNoBG.png',
+                  height: 100,
+                ),
+              ),
+
+              const SizedBox(height: 40),
+
               const Text(
                 "Welcome Back",
                 textAlign: TextAlign.center,
@@ -37,10 +53,8 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 30),
 
-              // Email Field
               TextField(
                 controller: emailController,
-                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -53,11 +67,9 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 15),
 
-              // Password Field
               TextField(
                 controller: passwordController,
                 obscureText: true,
-                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
@@ -70,67 +82,75 @@ class LoginScreen_State extends State<LoginScreen> {
 
               const SizedBox(height: 25),
 
-              ElevatedButton(
-                // Login button..
-                onPressed: () async {
-                  try {
-                    final user = await _authService.signIn(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      final user = await _authService.signIn(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
 
-                    if (user != null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Login Successful")),
-                      );
-                      Navigator.pushReplacement(
+                      if (user != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Login Successful")),
+                        );
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(
                         context,
-                        MaterialPageRoute(builder: (_) => const HomeScreen()),
-                      );
+                      ).showSnackBar(SnackBar(content: Text(e.toString())));
                     }
-                  } catch (e) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(e.toString())));
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  backgroundColor: Colors.black,
-                ),
-                child: const Text(
-                  "Login",
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
                 ),
               ),
 
               const SizedBox(height: 15),
 
-              OutlinedButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const SignupScreen()),
-                  );
-
-                  if (!mounted) return;
-
-                  if (result == true) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Signup Successful")),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () async {
+                    final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const SignupScreen()),
                     );
-                  }
-                },
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  side: const BorderSide(color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+
+                    if (!mounted) return;
+
+                    if (result == true) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Signup Successful")),
+                      );
+                    }
+                  },
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    side: const BorderSide(color: Colors.white),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  "Don't have an account? Sign up",
-                  style: TextStyle(color: Colors.black),
+                  child: const Text(
+                    "Don't have an account? Sign up",
+                    style: TextStyle(color: Colors.black),
+                  ),
                 ),
               ),
             ],

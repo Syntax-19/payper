@@ -11,9 +11,9 @@ class AppBackground extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          // upper color section
+
           Container(
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: MediaQuery.of(context).size.height * 0.85,
             width: double.infinity,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -34,7 +34,7 @@ class AppBackground extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.55,
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: Color(0xFFD2BF8C),
+                color: Colors.white,
               ),
             ),
           ),
@@ -44,7 +44,7 @@ class AppBackground extends StatelessWidget {
             child: ClipPath(
               clipper: WaveClipper(),
               child: Container(
-                height: 120,
+                height: 80,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                 ),
@@ -59,6 +59,7 @@ class AppBackground extends StatelessWidget {
     );
   }
 }
+
 class WaveClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

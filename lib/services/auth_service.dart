@@ -20,7 +20,7 @@ class AuthService {
         await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
           'name': name,
           'email': email,
-          'balance': 6200,
+          'balance': 5000,
           'createdAT': Timestamp.now(),
         });
       }
