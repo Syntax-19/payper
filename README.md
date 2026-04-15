@@ -1,16 +1,69 @@
-# payper
+# 🚀 Payper – UPI Simulator App
 
-A new Flutter project.
+A **Flutter-based fintech simulation app** that replicates real-world UPI transactions with **real-time updates using Firebase**.
 
-## Getting Started
+Built to simulate core digital payment flows while focusing on **performance, responsiveness, and real-time data handling**.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 📱 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🔐 **User Authentication** (Firebase Auth)
+- 💸 **Send Money Flow**
+- 📊 **Real-time Balance Updates** (Firestore Streams)
+- 📜 **Transaction History**
+- 👥 **Contacts Selection**
+- 🎨 **Clean & Responsive UI**
+- ⚡ **Instant UI Sync (No manual refresh required)**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- Flutter (Dart)
+
+**Backend**
+- Firebase Authentication
+- Cloud Firestore (Real-time database)
+
+---
+
+## 🧠 Key Learnings
+
+- Implemented **real-time data handling** using Firestore streams
+- Managed **asynchronous operations & state updates** in Flutter
+- Designed **responsive and structured UI layouts**
+- Solved real-world development challenges:
+  - Asset handling
+  - Navigation flow
+  - Keyboard overflow issues
+  - Layout constraints
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+<img src="assets/screenshots/HomeScreen.png" width="250" alt="Home Screen" />
+<img src="assets/screenshots/SendContactsScreen.png" width="250" alt="Send Money Screen" />
+<img src="assets/screenshots/HistoryScreen.png" width="250" alt="Transaction History Screen" />
+<img src="assets/screenshots/WelcomeScreen.png" width="250" alt="Login Screen" />
+</div>
+
+---
+
+## ⚙️ Setup Instructions
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/payper.git
+
+# Navigate into the project directory
+cd payper
+
+# Install dependencies
+flutter pub get
+
+# Run the application
+flutter run
