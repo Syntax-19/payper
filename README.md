@@ -44,13 +44,6 @@ Built to simulate core digital payment flows while focusing on **performance, re
 
 ## 📸 Screenshots
 
-<div align="center">
-<img src="assets/screenshots/HomeScreen.png" width="250" alt="Home Screen" />
-<img src="assets/screenshots/SendContactsScreen.png" width="250" alt="Send Money Screen" />
-<img src="assets/screenshots/HistoryScreen.png" width="250" alt="Transaction History Screen" />
-<img src="assets/screenshots/WelcomeScreen.png" width="250" alt="Login Screen" />
-</div>
-
 ---
 
 ## ⚙️ Setup Instructions
